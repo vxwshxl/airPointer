@@ -106,7 +106,7 @@ public struct AppSettings: Codable, Equatable, Sendable {
     public var actions = ActionMap()
     /// Listen for AirPods stem presses (play/pause, next, previous).
     public var stemControlsEnabled: Bool = true
-    /// Play an inaudible stream so macOS routes AirPods presses to AirCursor.
+    /// Play an inaudible stream so macOS routes AirPods presses to airPointer.
     public var keepAudioRouteActive: Bool = true
     /// Make the AirPods the Mac's sound output when tracking starts. AirPods only
     /// stream head motion to the device they're playing for, so this is on by default.

@@ -118,7 +118,7 @@ struct HeadVisualizer: View {
     }
 }
 
-import AirCursorCore
+import AirPointerCore
 
 /// Live checklist of every link in the chain, with a copy button for bug reports.
 struct DiagnosticsSection: View {

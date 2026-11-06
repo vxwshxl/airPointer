@@ -43,7 +43,7 @@ public enum Trigger: String, Codable, CaseIterable, Identifiable, Sendable {
     }
 }
 
-/// What AirCursor does in response to a trigger.
+/// What airPointer does in response to a trigger.
 public enum PointerAction: String, Codable, CaseIterable, Identifiable, Sendable {
     case none
     case leftClick, rightClick, doubleClick, middleClick
@@ -90,7 +90,7 @@ public enum PointerAction: String, Codable, CaseIterable, Identifiable, Sendable
     public static let groups: [(title: String, actions: [PointerAction])] = [
         ("", [.none]),
         ("Mouse", [.leftClick, .rightClick, .doubleClick, .middleClick, .toggleDrag]),
-        ("AirCursor", [.toggleScrollMode, .toggleTracking, .recenter]),
+        ("airPointer", [.toggleScrollMode, .toggleTracking, .recenter]),
         ("System", [.missionControl, .appWindows, .previousSpace, .nextSpace, .back, .forward, .screenshot]),
     ]
 }

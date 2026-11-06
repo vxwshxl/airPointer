@@ -114,7 +114,7 @@ jobs:
             PR NUMBER: ${{ github.event.pull_request.number }}
             PR AUTHOR: ${{ github.event.pull_request.user.login }}
 
-            You are the automated reviewer for AirCursor. Follow the "Pull request review"
+            You are the automated reviewer for airPointer. Follow the "Pull request review"
             section of CLAUDE.md in the working directory exactly. That file is the trusted
             rulebook from the main branch.
 

@@ -14,7 +14,7 @@ final class HotKeyManager {
         let hotKeyID = EventHotKeyID(signature: Self.signature, id: id)
         let status = RegisterEventHotKey(UInt32(keyCode), UInt32(modifiers), hotKeyID, GetApplicationEventTarget(), 0, &ref)
         guard status == noErr, let ref else {
-            NSLog("AirCursor: hot key \(id) unavailable (\(status)); another app may own it.")
+            NSLog("airPointer: hot key \(id) unavailable (\(status)); another app may own it.")
             return
         }
         refs.append(ref)

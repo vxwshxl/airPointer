@@ -1,5 +1,5 @@
 import CoreMotion
-import AirCursorCore
+import AirPointerCore
 
 /// Streams head attitude from AirPods Pro / Max / 3rd gen+ / Beats Fit Pro via CoreMotion.
 final class HeadphoneMotionService: NSObject, CMHeadphoneMotionManagerDelegate {

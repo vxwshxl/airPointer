@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 import XCTest
-@testable import AirCursor
+@testable import AirPointer
 
 final class ClickableProbeTests: XCTestCase {
     @MainActor
@@ -16,7 +16,7 @@ final class ClickableProbeTests: XCTestCase {
                            width: 200, height: 160)
         let window = NSWindow(contentRect: frame, styleMask: [.titled], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
-        window.title = "Welcome to AirCursor"
+        window.title = "Welcome to airPointer"
         window.contentView = NSHostingView(rootView: Button("Click me") {}.frame(width: 200, height: 160))
         window.setFrame(frame, display: true)
         window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]

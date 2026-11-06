@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds build/AirCursor.app (universal: Apple silicon + Intel) and signs it.
+# Builds build/airPointer.app (universal: Apple silicon + Intel) and signs it.
 #
 #   scripts/build-app.sh                       # auto-picks a signing identity
 #   SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" scripts/build-app.sh
@@ -11,7 +11,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-APP_NAME="AirCursor"
+APP_NAME="airPointer"   # bundle + display name
+BIN_NAME="AirPointer"   # SwiftPM executable (CFBundleExecutable)
 CONFIG="${CONFIG:-release}"
 ARCHS="${ARCHS:-arm64 x86_64}"
 APP="build/${APP_NAME}.app"
@@ -31,7 +32,7 @@ fi
 echo "▸ Assembling $APP"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$BIN_DIR/$APP_NAME" "$APP/Contents/MacOS/$APP_NAME"
+cp "$BIN_DIR/$BIN_NAME" "$APP/Contents/MacOS/$BIN_NAME"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 if [[ -n "${BUILD_NUMBER:-}" ]]; then
@@ -48,11 +49,11 @@ SIGN_IDENTITY="${SIGN_IDENTITY:--}"
 
 echo "▸ Signing with: $SIGN_IDENTITY"
 if [[ "$SIGN_IDENTITY" == "-" ]]; then
-  codesign --force --deep --sign - --entitlements Resources/AirCursor.entitlements "$APP"
+  codesign --force --deep --sign - --entitlements Resources/AirPointer.entitlements "$APP"
   echo "  (ad-hoc: you'll need to re-grant Accessibility after each rebuild)"
 else
   codesign --force --options runtime --timestamp \
-    --entitlements Resources/AirCursor.entitlements --sign "$SIGN_IDENTITY" "$APP"
+    --entitlements Resources/AirPointer.entitlements --sign "$SIGN_IDENTITY" "$APP"
 fi
 codesign --verify --strict --verbose=1 "$APP"
 

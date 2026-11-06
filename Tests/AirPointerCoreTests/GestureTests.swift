@@ -1,5 +1,5 @@
 import XCTest
-@testable import AirCursorCore
+@testable import AirPointerCore
 
 final class GestureTests: XCTestCase {
     private let all = Set(HeadGesture.allCases)

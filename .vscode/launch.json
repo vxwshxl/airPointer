@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:airPointer}",
+            "name": "Debug AirPointer",
+            "target": "AirPointer",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug AirPointer"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:airPointer}",
+            "name": "Release AirPointer",
+            "target": "AirPointer",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release AirPointer"
+        }
+    ]
+}

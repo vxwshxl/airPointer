@@ -1,5 +1,5 @@
 import SwiftUI
-import AirCursorCore
+import AirPointerCore
 
 enum Pane: String, CaseIterable, Identifiable {
     case setup, devices, pointer, gestures, shortcuts
@@ -29,7 +29,7 @@ enum Pane: String, CaseIterable, Identifiable {
 
 struct MainWindowView: View {
     @EnvironmentObject private var controller: AppController
-    @State private var pane: Pane? = nil
+    @ViewState private var pane: Pane? = nil
 
     var body: some View {
         NavigationSplitView {
@@ -54,7 +54,7 @@ struct MainWindowView: View {
             controller.windowVisibilityChanged()
         }
         .onDisappear { controller.windowVisibilityChanged() }
-        .alert("AirCursor", isPresented: Binding(get: { controller.lastError != nil }, set: { if !$0 { controller.clearError() } })) {
+        .alert("airPointer", isPresented: Binding(get: { controller.lastError != nil }, set: { if !$0 { controller.clearError() } })) {
             Button("OK") { controller.clearError() }
         } message: {
             Text(controller.lastError ?? "")
@@ -120,7 +120,7 @@ struct SetupView: View {
 
             Section("2 · Allow pointer control") {
                 HStack {
-                    Text("macOS asks you to allow AirCursor under Privacy & Security › Accessibility. This is what lets it move the pointer and click.")
+                    Text("macOS asks you to allow airPointer under Privacy & Security › Accessibility. This is what lets it move the pointer and click.")
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer()
@@ -133,7 +133,7 @@ struct SetupView: View {
 
             Section("3 · Allow head tracking") {
                 HStack {
-                    Text("Lets AirCursor read your AirPods’ motion sensors. Nothing leaves your Mac.")
+                    Text("Lets airPointer read your AirPods’ motion sensors. Nothing leaves your Mac.")
                         .foregroundStyle(.secondary)
                     Spacer()
                     StatusBadge(ok: controller.motionAuthorization == .authorized || controller.motionStreaming,
@@ -253,7 +253,7 @@ struct DevicesView: View {
             }
 
             Section("Supported for head tracking") {
-                Text("AirPods Pro (all generations), AirPods Max, AirPods (3rd generation and later), Beats Fit Pro. Other headphones can connect but don’t have the motion sensors AirCursor needs.")
+                Text("AirPods Pro (all generations), AirPods Max, AirPods (3rd generation and later), Beats Fit Pro. Other headphones can connect but don’t have the motion sensors airPointer needs.")
                     .font(.callout).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -353,12 +353,12 @@ struct GestureSettingsView: View {
                     ActionPicker(trigger: trigger, action: binding(trigger))
                         .disabled(!controller.settings.stemControlsEnabled)
                 }
-                Toggle("Keep AirPods routed to AirCursor (inaudible audio)", isOn: $controller.settings.keepAudioRouteActive)
+                Toggle("Keep AirPods routed to airPointer (inaudible audio)", isOn: $controller.settings.keepAudioRouteActive)
                     .disabled(!controller.settings.stemControlsEnabled)
             } header: {
                 Text("Stem presses")
             } footer: {
-                Text("While tracking is on, AirCursor takes over play/pause/next/previous from your AirPods and keyboard media keys. Pause tracking to give them back to your music app.")
+                Text("While tracking is on, airPointer takes over play/pause/next/previous from your AirPods and keyboard media keys. Pause tracking to give them back to your music app.")
                     .font(.caption).foregroundStyle(.secondary)
             }
 
@@ -441,7 +441,7 @@ struct GeneralView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     tip("Pointer drifting while you’re still? Raise Steadiness.")
                     tip("Hit the screen edge? Pause (shake or \(HotKey.toggleTracking.display)), turn back to center, resume — like lifting a mouse.")
-                    tip("Removing an AirPod can send “pause”, which AirCursor treats as a press. Pause tracking first, or turn off Automatic Ear Detection.")
+                    tip("Removing an AirPod can send “pause”, which airPointer treats as a press. Pause tracking first, or turn off Automatic Ear Detection.")
                     tip("Mission Control and Spaces actions use the standard macOS shortcuts (⌃↑, ⌃↓, ⌃←, ⌃→).")
                 }
                 .font(.callout)
@@ -453,7 +453,7 @@ struct GeneralView: View {
                 HStack {
                     Button("Reset all settings", role: .destructive) { controller.resetSettings() }
                     Spacer()
-                    Text("AirCursor \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev")")
+                    Text("airPointer \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev")")
                         .foregroundStyle(.secondary)
                 }
             }

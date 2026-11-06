@@ -1,5 +1,5 @@
 import SwiftUI
-import AirCursorCore
+import AirPointerCore
 
 struct MenuContentView: View {
     @EnvironmentObject private var controller: AppController
@@ -10,7 +10,7 @@ struct MenuContentView: View {
             header
 
             if !controller.accessibilityTrusted {
-                warning("AirCursor needs Accessibility permission to move the pointer.", button: "Grant") {
+                warning("airPointer needs Accessibility permission to move the pointer.", button: "Grant") {
                     controller.requestAccessibility()
                 }
             }
@@ -80,7 +80,7 @@ struct MenuContentView: View {
                 .font(.title2)
                 .foregroundStyle(Color.accentColor)
             VStack(alignment: .leading, spacing: 1) {
-                Text("AirCursor").font(.headline)
+                Text("airPointer").font(.headline)
                 Text(controller.statusText).font(.caption).foregroundStyle(.secondary)
             }
             Spacer()

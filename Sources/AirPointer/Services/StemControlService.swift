@@ -1,12 +1,12 @@
 import MediaPlayer
-import AirCursorCore
+import AirPointerCore
 
 /// Captures AirPods stem presses.
 ///
 /// AirPods send stem presses to whichever app macOS considers "Now Playing":
-/// one press → play/pause, two → next track, three → previous track. AirCursor
+/// one press → play/pause, two → next track, three → previous track. airPointer
 /// claims Now Playing while active and turns those commands into triggers.
-/// (AudioKeepAlive makes macOS treat AirCursor as genuinely playing.)
+/// (AudioKeepAlive makes macOS treat airPointer as genuinely playing.)
 final class StemControlService {
     var onPress: ((Trigger) -> Void)?
 
@@ -65,7 +65,7 @@ final class StemControlService {
     private func publishNowPlaying() {
         let info = MPNowPlayingInfoCenter.default()
         info.nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "AirCursor",
+            MPMediaItemPropertyTitle: "airPointer",
             MPMediaItemPropertyArtist: "Head pointer active",
             MPNowPlayingInfoPropertyPlaybackRate: 1.0,
             MPNowPlayingInfoPropertyIsLiveStream: true,

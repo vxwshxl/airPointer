@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 
 @main
-struct AirCursorApp: App {
+struct AirPointerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var controller = AppController.shared
 
@@ -16,7 +16,7 @@ struct AirCursorApp: App {
         }
         .menuBarExtraStyle(.window)
 
-        Window("AirCursor", id: WindowID.main) {
+        Window("airPointer", id: WindowID.main) {
             MainWindowView()
                 .environmentObject(controller)
                 .environmentObject(controller.pairing)
@@ -26,8 +26,8 @@ struct AirCursorApp: App {
         .defaultSize(width: 860, height: 620)
         .defaultLaunchBehavior(.suppressed)
 
-        // First launch opens the guided tour; afterwards AirCursor lives in the menu bar.
-        Window("Welcome to AirCursor", id: WindowID.tour) {
+        // First launch opens the guided tour; afterwards airPointer lives in the menu bar.
+        Window("Welcome to airPointer", id: WindowID.tour) {
             TourView()
                 .environmentObject(controller)
                 .environmentObject(controller.pairing)

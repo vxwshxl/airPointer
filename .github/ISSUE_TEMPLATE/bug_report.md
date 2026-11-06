@@ -9,7 +9,7 @@ labels: bug
 **What did you expect?**
 
 **Diagnostics**
-Open AirCursor › Settings › Shortcuts & General › Diagnostics, click **Copy diagnostics**, and paste here:
+Open airPointer › Settings › Shortcuts & General › Diagnostics, click **Copy diagnostics**, and paste here:
 
 ```
 (paste here)
@@ -18,4 +18,4 @@ Open AirCursor › Settings › Shortcuts & General › Diagnostics, click **Cop
 **Setup**
 - macOS version:
 - AirPods model:
-- AirCursor version:
+- airPointer version:

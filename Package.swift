@@ -2,18 +2,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "AirCursor",
+    name: "AirPointer",
     platforms: [.macOS(.v15)],
     products: [
-        .executable(name: "AirCursor", targets: ["AirCursor"]),
+        .executable(name: "AirPointer", targets: ["AirPointer"]),
     ],
     targets: [
         // Pure, deterministic logic: pointer math, gesture + dwell detection, settings.
-        .target(name: "AirCursorCore"),
+        .target(name: "AirPointerCore"),
         // The macOS app: CoreMotion, IOBluetooth, CGEvent synthesis, MediaPlayer, UI.
         .executableTarget(
-            name: "AirCursor",
-            dependencies: ["AirCursorCore"],
+            name: "AirPointer",
+            dependencies: ["AirPointerCore"],
             linkerSettings: [
                 .linkedFramework("IOBluetooth"),
                 .linkedFramework("CoreMotion"),
@@ -21,8 +21,8 @@ let package = Package(
                 .linkedFramework("Carbon"),
             ]
         ),
-        .testTarget(name: "AirCursorCoreTests", dependencies: ["AirCursorCore"]),
-        .testTarget(name: "AirCursorAppTests", dependencies: ["AirCursor"]),
+        .testTarget(name: "AirPointerCoreTests", dependencies: ["AirPointerCore"]),
+        .testTarget(name: "AirPointerAppTests", dependencies: ["AirPointer"]),
     ],
     swiftLanguageModes: [.v5]
 )

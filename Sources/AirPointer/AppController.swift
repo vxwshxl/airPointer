@@ -4,7 +4,7 @@ import CoreBluetooth
 import CoreMotion
 import ServiceManagement
 import SwiftUI
-import AirCursorCore
+import AirPointerCore
 
 enum TrackingMode: String {
     case pointer, scroll
@@ -116,7 +116,7 @@ final class AppController: ObservableObject {
     func start() {
         guard !started else { return }
         started = true
-        Diagnostics.log.notice("AirCursor starting (accessibility: \(self.accessibilityTrusted, privacy: .public), motion: \(self.motionAuthorization.label, privacy: .public), onboarded: \(self.settings.hasCompletedOnboarding, privacy: .public))")
+        Diagnostics.log.notice("airPointer starting (accessibility: \(self.accessibilityTrusted, privacy: .public), motion: \(self.motionAuthorization.label, privacy: .public), onboarded: \(self.settings.hasCompletedOnboarding, privacy: .public))")
 
         motion.onSample = { [weak self] s in self?.handle(s) }
         motion.onConnectionChange = { [weak self] connected in self?.headphonesChanged(connected: connected) }
@@ -160,13 +160,13 @@ final class AppController: ObservableObject {
             if settings.hasCompletedOnboarding, tourStep < 1 { tourStep = 1 }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                 guard let self, self.needsSetup else { return }
-                let visible = NSApp.windows.contains { $0.isVisible && $0.title == "Welcome to AirCursor" }
+                let visible = NSApp.windows.contains { $0.isVisible && $0.title == "Welcome to airPointer" }
                 if !visible { self.showTour() }
             }
         }
     }
 
-    /// True until AirCursor can actually work: tour finished and both permissions granted.
+    /// True until airPointer can actually work: tour finished and both permissions granted.
     var needsSetup: Bool {
         !settings.hasCompletedOnboarding || !accessibilityTrusted || motionAuthorization != .authorized
     }
@@ -252,15 +252,15 @@ final class AppController: ObservableObject {
 
     /// Current guided-tour step, persisted so the tour resumes after a relaunch or a
     /// trip to System Settings.
-    @Published var tourStep: Int = UserDefaults.standard.integer(forKey: "AirCursor.tourStep") {
-        didSet { UserDefaults.standard.set(tourStep, forKey: "AirCursor.tourStep") }
+    @Published var tourStep: Int = UserDefaults.standard.integer(forKey: "airPointer.tourStep") {
+        didSet { UserDefaults.standard.set(tourStep, forKey: "airPointer.tourStep") }
     }
 
     func completeOnboarding() {
         tourStep = 0
         settings.hasCompletedOnboarding = true
         if accessibilityTrusted { setTracking(true, announce: false) }
-        toast("You’re all set — AirCursor lives in the menu bar", symbol: "cursorarrow.motionlines")
+        toast("You’re all set — airPointer lives in the menu bar", symbol: "cursorarrow.motionlines")
     }
 
     func resetSettings() {
@@ -522,15 +522,15 @@ final class AppController: ObservableObject {
         windowOpener?(WindowID.tour)
         NSApp.activate()
         DispatchQueue.main.async {
-            NSApp.windows.first { $0.title == "Welcome to AirCursor" }?.makeKeyAndOrderFront(nil)
+            NSApp.windows.first { $0.title == "Welcome to airPointer" }?.makeKeyAndOrderFront(nil)
         }
     }
 
-    /// AirCursor is a menu bar app, but while one of its windows is open it shows in the
+    /// airPointer is a menu bar app, but while one of its windows is open it shows in the
     /// Dock and ⌘-Tab so the window can't get lost behind other apps.
     func windowVisibilityChanged() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            let titles: Set<String> = ["AirCursor", "Welcome to AirCursor"]
+            let titles: Set<String> = ["airPointer", "Welcome to airPointer"]
             let anyOpen = NSApp.windows.contains { $0.isVisible && titles.contains($0.title) }
             let policy: NSApplication.ActivationPolicy = anyOpen ? .regular : .accessory
             if NSApp.activationPolicy() != policy {
@@ -560,9 +560,9 @@ final class AppController: ObservableObject {
         lastMotionError = "\(ns.localizedDescription) (\(ns.domain) \(ns.code))"
         refreshPermissions()
         if motionAuthorization == .denied {
-            lastError = "Motion access is off. Turn on AirCursor in System Settings › Privacy & Security."
+            lastError = "Motion access is off. Turn on airPointer in System Settings › Privacy & Security."
         } else {
-            NSLog("AirCursor: motion error \(error.localizedDescription)")
+            NSLog("airPointer: motion error \(error.localizedDescription)")
         }
     }
 
@@ -890,7 +890,7 @@ extension PointerAction {
 // MARK: - Persistence
 
 enum SettingsStore {
-    private static let key = "AirCursor.settings.v1"
+    private static let key = "airPointer.settings.v1"
 
     static func load() -> AppSettings {
         guard let data = UserDefaults.standard.data(forKey: key),

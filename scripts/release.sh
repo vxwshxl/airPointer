@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Produces a notarized, stapled build/AirCursor-<version>.dmg for distribution.
+# Produces a notarized, stapled build/airPointer-<version>.dmg for distribution.
 #
 # One-time setup:
-#   xcrun notarytool store-credentials AirCursorNotary \
+#   xcrun notarytool store-credentials AirPointerNotary \
 #       --apple-id you@example.com --team-id TEAMID --password <app-specific-password>
 #
 # Then:
-#   SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" NOTARY_PROFILE=AirCursorNotary scripts/release.sh
+#   SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" NOTARY_PROFILE=AirPointerNotary scripts/release.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -18,14 +18,14 @@ swift test
 SIGN_IDENTITY="$SIGN_IDENTITY" scripts/build-app.sh
 
 VERSION="$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Resources/Info.plist)"
-DMG="build/AirCursor-${VERSION}.dmg"
+DMG="build/airPointer-${VERSION}.dmg"
 STAGE="build/dmg"
 
 rm -rf "$STAGE" "$DMG"
 mkdir -p "$STAGE"
-cp -R build/AirCursor.app "$STAGE/"
+cp -R build/airPointer.app "$STAGE/"
 ln -s /Applications "$STAGE/Applications"
-hdiutil create -volname "AirCursor" -srcfolder "$STAGE" -ov -format UDZO "$DMG"
+hdiutil create -volname "airPointer" -srcfolder "$STAGE" -ov -format UDZO "$DMG"
 codesign --force --sign "$SIGN_IDENTITY" --timestamp "$DMG"
 
 echo "▸ Notarizing (this can take a few minutes)"

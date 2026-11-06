@@ -2,8 +2,8 @@ import CoreMotion
 import os
 
 enum Diagnostics {
-    /// View with: log stream --level info --predicate 'subsystem == "io.github.m-afham.AirCursor"'
-    static let log = Logger(subsystem: "io.github.m-afham.AirCursor", category: "app")
+    /// View with: log stream --level info --predicate 'subsystem == "com.vxwshxl.airPointer"'
+    static let log = Logger(subsystem: "com.vxwshxl.airPointer", category: "app")
 }
 
 extension CMAuthorizationStatus {

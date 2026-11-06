@@ -6,7 +6,7 @@ enum MouseButtonKind {
 }
 
 /// Transparent AppKit view that reports hover, movement and clicks from the real
-/// pointer — including the synthetic events AirCursor posts — even when the window
+/// pointer — including the synthetic events airPointer posts — even when the window
 /// isn't key. Used by the guided tour to detect what the user actually did.
 struct PointerTarget: NSViewRepresentable {
     var onHover: ((Bool) -> Void)? = nil

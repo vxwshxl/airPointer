@@ -1,6 +1,6 @@
 import AppKit
 import SwiftUI
-import AirCursorCore
+import AirPointerCore
 
 // MARK: - Steps
 
@@ -31,7 +31,7 @@ struct TourView: View {
     @EnvironmentObject private var pairing: PairingService
     @Environment(\.dismissWindow) private var dismissWindow
 
-    @State private var triedIt = false
+    @ViewState private var triedIt = false
 
     private var step: TourStep { TourStep(rawValue: controller.tourStep) ?? .welcome }
 
@@ -125,7 +125,7 @@ struct TourView: View {
     private var primaryTitle: String {
         switch step {
         case .welcome: "Get started"
-        case .done: "Start using AirCursor"
+        case .done: "Start using airPointer"
         default: "Continue"
         }
     }
@@ -163,7 +163,7 @@ private struct TourStage: View {
 
             VStack(spacing: 10) {
                 statusPill
-                Text("AirCursor")
+                Text("airPointer")
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white.opacity(0.45))
             }
@@ -378,7 +378,7 @@ private struct PermissionsStep: View {
                 row(
                     symbol: "cursorarrow.click.2",
                     title: "Accessibility",
-                    detail: "Lets AirCursor move the pointer and click for you. Find AirCursor in the list and switch it on. Already on? Switch it off and on again — macOS needs that after an update.",
+                    detail: "Lets airPointer move the pointer and click for you. Find airPointer in the list and switch it on. Already on? Switch it off and on again — macOS needs that after an update.",
                     granted: controller.accessibilityTrusted,
                     action: controller.requestAccessibility
                 )
@@ -406,7 +406,7 @@ private struct PermissionsStep: View {
                 Text(detail).font(.system(size: 13)).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
                 if denied {
-                    Text("Turned off — enable AirCursor in System Settings › Privacy & Security › Motion & Fitness.")
+                    Text("Turned off — enable airPointer in System Settings › Privacy & Security › Motion & Fitness.")
                         .font(.caption).foregroundStyle(.orange)
                 }
             }
@@ -435,7 +435,7 @@ private struct PermissionsStep: View {
 private struct ConnectStep: View {
     @EnvironmentObject private var controller: AppController
     @EnvironmentObject private var pairing: PairingService
-    @State private var showPairing = false
+    @ViewState private var showPairing = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -560,11 +560,11 @@ private struct TryItStep: View {
     @EnvironmentObject private var controller: AppController
     let done: () -> Void
 
-    @State private var hits = 0
-    @State private var hovering = false
-    @State private var usedHover = false
-    @State private var usedNod = false
-    @State private var usedStem = false
+    @ViewState private var hits = 0
+    @ViewState private var hovering = false
+    @ViewState private var usedHover = false
+    @ViewState private var usedNod = false
+    @ViewState private var usedStem = false
 
     private let spots: [CGPoint] = [CGPoint(x: 0.5, y: 0.45), CGPoint(x: 0.2, y: 0.22), CGPoint(x: 0.8, y: 0.72)]
     private let goal = 3
@@ -659,7 +659,7 @@ private struct DoneStep: View {
         VStack(alignment: .leading, spacing: 0) {
             StepHeader(
                 title: "You’re ready.",
-                subtitle: "AirCursor lives in your menu bar. Here’s everything you can do — remap any of it in Settings, and replay this tour from the menu bar."
+                subtitle: "airPointer lives in your menu bar. Here’s everything you can do — remap any of it in Settings, and replay this tour from the menu bar."
             )
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                 ForEach(bindings, id: \.0) { trigger, action in

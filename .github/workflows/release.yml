@@ -7,8 +7,8 @@ name: Release
 # - PRs merged by the PR Review workflow call this workflow directly.
 # - Version bump: patch by default. Label the PR `release:minor` or `release:major` for bigger
 #   bumps, or `skip-release` to not release it. Pushing a tag like v2.0.0 by hand also works.
-# - Every release attaches AirCursor-x.y.z.zip and a stable AirCursor.zip, so
-#   https://github.com/<owner>/<repo>/releases/latest/download/AirCursor.zip is always current.
+# - Every release attaches airPointer-x.y.z.zip and a stable airPointer.zip, so
+#   https://github.com/<owner>/<repo>/releases/latest/download/airPointer.zip is always current.
 #
 # Optional, for signed + notarized builds that open without Gatekeeper warnings, add:
 #   MACOS_CERT_P12        base64 of your "Developer ID Application" .p12
@@ -172,7 +172,7 @@ jobs:
       - name: Build universal app
         run: |
           SIGN_IDENTITY="${SIGN_IDENTITY:--}" BUILD_NUMBER="${{ github.run_number }}" scripts/build-app.sh
-          ditto -c -k --keepParent build/AirCursor.app "build/AirCursor-$VERSION.zip"
+          ditto -c -k --keepParent build/airPointer.app "build/airPointer-$VERSION.zip"
 
       - name: Notarize
         if: env.HAS_NOTARY == 'true'
@@ -181,18 +181,18 @@ jobs:
           NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
           NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
         run: |
-          xcrun notarytool submit "build/AirCursor-$VERSION.zip" \
+          xcrun notarytool submit "build/airPointer-$VERSION.zip" \
             --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD" --wait
-          xcrun stapler staple build/AirCursor.app
-          rm "build/AirCursor-$VERSION.zip"
-          ditto -c -k --keepParent build/AirCursor.app "build/AirCursor-$VERSION.zip"
+          xcrun stapler staple build/airPointer.app
+          rm "build/airPointer-$VERSION.zip"
+          ditto -c -k --keepParent build/airPointer.app "build/airPointer-$VERSION.zip"
 
       - name: Publish release
         env:
           SHA: ${{ needs.plan.outputs.sha }}
         run: |
-          cp "build/AirCursor-$VERSION.zip" build/AirCursor.zip
+          cp "build/airPointer-$VERSION.zip" build/airPointer.zip
           # Creates the tag on the released commit if it doesn't exist yet.
-          gh release create "$TAG" build/AirCursor.zip "build/AirCursor-$VERSION.zip" \
+          gh release create "$TAG" build/airPointer.zip "build/airPointer-$VERSION.zip" \
             --repo "${{ github.repository }}" --target "$SHA" \
-            --title "AirCursor $VERSION" --generate-notes
+            --title "airPointer $VERSION" --generate-notes

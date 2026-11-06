@@ -3,12 +3,12 @@ import ApplicationServices
 
 /// Answers "is the thing under the pointer clickable?" for smart hover click.
 ///
-/// Uses the Accessibility tree AirCursor already has permission to read: an element
+/// Uses the Accessibility tree airPointer already has permission to read: an element
 /// (or one of its close ancestors) that is a button, link, tab, menu item, text field,
 /// Dock icon… or that supports the "press" action. Falls back to the system
 /// pointer: when it turns into the pointing hand, it's over a link.
 enum ClickableProbe {
-    private static let queue = DispatchQueue(label: "AirCursor.ClickableProbe", qos: .userInitiated)
+    private static let queue = DispatchQueue(label: "airPointer.ClickableProbe", qos: .userInitiated)
 
     private static let clickableRoles: Set<String> = [
         "AXButton", "AXLink", "AXMenuItem", "AXMenuBarItem", "AXMenuButton",
@@ -85,7 +85,7 @@ enum ClickableProbe {
     /// Debug description of the element chain at a point, e.g. "AXButton[press] < AXGroup".
     @MainActor static func describe(_ point: CGPoint) -> String {
         if let window = ownWindow(at: point) {
-            return "AirCursor: own window (\(window.title)); AX query skipped"
+            return "airPointer: own window (\(window.title)); AX query skipped"
         }
         let systemWide = AXUIElementCreateSystemWide()
         AXUIElementSetMessagingTimeout(systemWide, 0.15)
@@ -135,7 +135,7 @@ enum ClickableProbe {
 
     /// Preserve the tour/Settings fallback without querying our own AX tree.
     @MainActor private static func isInteractive(_ window: NSWindow) -> Bool {
-        let titles: Set<String> = ["AirCursor", "Welcome to AirCursor"]
+        let titles: Set<String> = ["airPointer", "Welcome to airPointer"]
         return window.isVisible && titles.contains(window.title)
     }
 

@@ -5,17 +5,17 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>AirCursor</string>
+	<string>airPointer</string>
 	<key>CFBundleExecutable</key>
-	<string>AirCursor</string>
+	<string>AirPointer</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>io.github.m-afham.AirCursor</string>
+	<string>com.vxwshxl.airPointer</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>AirCursor</string>
+	<string>airPointer</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -33,10 +33,10 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2026 AirCursor contributors · MIT License</string>
+	<string>© 2026 airPointer contributors · MIT License</string>
 	<key>NSMotionUsageDescription</key>
-	<string>AirCursor reads your AirPods’ head-tracking sensors so you can move the pointer by turning your head. Motion data never leaves your Mac.</string>
+	<string>airPointer reads your AirPods’ head-tracking sensors so you can move the pointer by turning your head. Motion data never leaves your Mac.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>AirCursor uses Bluetooth to find, pair and connect your AirPods.</string>
+	<string>airPointer uses Bluetooth to find, pair and connect your AirPods.</string>
 </dict>
 </plist>

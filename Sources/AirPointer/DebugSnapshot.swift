@@ -2,18 +2,18 @@ import AppKit
 import SceneKit
 
 extension Notification.Name {
-    static let tourShowStep = Notification.Name("AirCursor.tourShowStep")
+    static let tourShowStep = Notification.Name("airPointer.tourShowStep")
 }
 
 /// Developer tool: renders every guided-tour step to PNG for docs and visual review.
 ///
-///     open build/AirCursor.app --env AIRCURSOR_SNAPSHOT_DIR=/tmp/shots
+///     open build/airPointer.app --env AIRPOINTER_SNAPSHOT_DIR=/tmp/shots
 ///
 /// Off unless the environment variable is set.
 @MainActor
 enum DebugSnapshot {
     static var directory: URL? {
-        ProcessInfo.processInfo.environment["AIRCURSOR_SNAPSHOT_DIR"].map { URL(fileURLWithPath: $0) }
+        ProcessInfo.processInfo.environment["AIRPOINTER_SNAPSHOT_DIR"].map { URL(fileURLWithPath: $0) }
     }
 
     static func runIfRequested() {
@@ -24,11 +24,11 @@ enum DebugSnapshot {
             for step in TourStep.allCases {
                 NotificationCenter.default.post(name: .tourShowStep, object: step.rawValue)
                 try? await Task.sleep(for: .seconds(1.6))
-                if let window = NSApp.windows.first(where: { $0.title == "Welcome to AirCursor" && $0.isVisible }) {
+                if let window = NSApp.windows.first(where: { $0.title == "Welcome to airPointer" && $0.isVisible }) {
                     capture(window, to: dir.appendingPathComponent(String(format: "tour-%02d-%@.png", step.rawValue, String(describing: step))))
                 }
             }
-            NSLog("AirCursor: snapshots written to \(dir.path)")
+            NSLog("airPointer: snapshots written to \(dir.path)")
             NSApp.terminate(nil)
         }
     }
@@ -61,11 +61,11 @@ enum DebugSnapshot {
 
 /// Developer tool: logs the hover-click verdict for given screen points.
 ///
-///     open build/AirCursor.app --env AIRCURSOR_PROBE_POINTS="20,10;400,300"
+///     open build/airPointer.app --env AIRPOINTER_PROBE_POINTS="20,10;400,300"
 @MainActor
 enum DebugProbe {
     static func runIfRequested() {
-        guard let spec = ProcessInfo.processInfo.environment["AIRCURSOR_PROBE_POINTS"] else { return }
+        guard let spec = ProcessInfo.processInfo.environment["AIRPOINTER_PROBE_POINTS"] else { return }
         let points = spec.split(separator: ";").compactMap { pair -> CGPoint? in
             let xy = pair.split(separator: ",").compactMap { Double($0.trimmingCharacters(in: .whitespaces)) }
             return xy.count == 2 ? CGPoint(x: xy[0], y: xy[1]) : nil

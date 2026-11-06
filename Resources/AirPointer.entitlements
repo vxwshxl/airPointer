@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<!--
-	  AirCursor is distributed outside the Mac App Store (Developer ID).
+	  airPointer is distributed outside the Mac App Store (Developer ID).
 	  It cannot be sandboxed: posting synthetic mouse events to other apps
 	  requires the Accessibility permission, which sandboxed apps can't use.
 	  Hardened Runtime is enabled at signing time; no exceptions are needed.
